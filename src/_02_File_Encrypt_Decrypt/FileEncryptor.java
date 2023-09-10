@@ -26,16 +26,33 @@ public class FileEncryptor {
 	 * Use the key to shift each letter in the users input and save the final result to a file.
 	 */
 	public static void main(String[] args) {
-		
-		
+
 	try {
 	// Create a program that takes a message from the user and saves it to a file.
-		String message = JOptionPane.showInputDialog("Enter a message.");
-		String key = JOptionPane.showInputDialog("Enter a key.");
+		String m = JOptionPane.showInputDialog("Enter a message.");
+		String k = JOptionPane.showInputDialog("Enter a key.");
+		int key = Integer.parseInt(k);
+		String message ="";
 	
-	FileWriter fw = new FileWriter("src/_00_Intro_To_File_Input_and_Output/encryption.txt");
-	for(int i = 0; i<message.length(); i++) {
-		
+	
+	FileWriter fw = new FileWriter("src/_00_Intro_To_File_Input_and_Output/test.txt", true);
+	String[] letters = m.split("");
+	for(int i = 0; i<letters.length; i++) {
+char ch = letters[i].charAt(0);
+if((char)((char)ch)>31 && (char)((char)ch)<48) {			//If it is a space/symbol/punctuation...
+	message = (message +ch);
+}else if((char)((char)ch+key)>90 && (char)((char)ch+key)<97) {   //If the capital letter goes past Z.
+	int diff = (((char)((char)ch+key))-90);
+	ch = (char) (65+diff-1);
+	message = (message +ch);
+}else if((char)((char)ch+key)>122) {	 //If the lowercase letter goes past z.
+	int diff = (((char)((char)ch+key))-122);
+	ch = (char) (97+diff-1);
+	message = (message +ch);
+}else {
+ch =  (char)((char)ch+key);
+message = (message +ch);
+}
 	}
 	fw.write(message);
 	fw.close();
