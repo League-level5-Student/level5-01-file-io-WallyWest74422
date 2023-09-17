@@ -27,24 +27,24 @@ public class FileDecryptor {
 	public static void main(String[] args) {
 StringBuilder str = new StringBuilder("");
 		try {
-			FileReader fr = new FileReader("src/_00_Intro_To_File_Input_and_Output/test2.txt");
+			FileReader fr = new FileReader("src/_00_Intro_To_File_Input_and_Output/test.txt");
 			int c = fr.read();
 			while(c != -1){
-				if(((char)c)>31 && ((char)c)<48) {			//If it is a space/symbol/punctuation...
-					str.append(c);
+				if((c)>31 && (c)<48) {			//If it is a space/symbol/punctuation...
+					str.append((char)c);
 					System.out.println(c);
-				}else if(((char)c-4)>47 && ((char)c-4)<65) {
+				}else if((c-4)>47 && (c-4)<65) {
 					int diff = 65-(((char)c)-4);
 					c = 90-diff;
-					str.append(c);
+					str.append((char)c);
 					System.out.println(c);
-				}else if(((char)c-4)>90 && ((char)c-4)<97) {
-					int diff = 97-(((char)c)-4);
-					c = 122-diff;
+				}else if((c-4)>90 && (c-4)<97) {
+
+					c+=22;
 					System.out.println(c);
-					str.append(c);
+					str.append((char)c);
 				}else {
-					str.append((char)c-4);
+					str.append((char)(c-4));
 					System.out.println(c-4);
 				}
 				c = fr.read();
