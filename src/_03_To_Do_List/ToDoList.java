@@ -2,6 +2,11 @@ package _03_To_Do_List;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -18,6 +23,7 @@ public class ToDoList implements ActionListener {
 	JButton b4 = new JButton("Save List");
 	JButton b5 = new JButton("Load List");
 	ArrayList<String> list = new ArrayList<String>();
+	String lastFile;
 
 	/*
 	 * Create a program with five buttons, add task, view tasks, remove task, save
@@ -45,6 +51,22 @@ public class ToDoList implements ActionListener {
 	}
 
 	private void setup() {
+		if(lastFile!=null) {
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(lastFile));	
+			String line = br.readLine();
+			while(line != null){
+				list.add(line);
+				line = br.readLine();
+			}
+			br.close();
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		}
+		
 		frame.setSize(200, 200);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		panel.setSize(200, 200);
@@ -61,6 +83,7 @@ public class ToDoList implements ActionListener {
 		b4.addActionListener(this);
 		b5.addActionListener(this);
 		frame.pack();
+		
 	}
 
 	@Override
@@ -81,9 +104,33 @@ for (int i = 0; i < list.size(); i++) {
 	}
 }
 		} else if (e.getSource() == b4) {
-
+			String file = JOptionPane.showInputDialog("Create a file name to save your list into.");
+			lastFile = "src/_03_To_Do_List/"+ file+".txt";
+			try {
+				FileWriter fw = new FileWriter("src/_03_To_Do_List/"+ file+".txt");
+				for (int i = 0; i < list.size(); i++) {
+					fw.write(list.get(i) + "\n");
+				}					
+				fw.close();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		} else if (e.getSource() == b5) {
-
+String name = JOptionPane.showInputDialog("What is the name of your file?");
+String file = "src/_03_To_Do_List/" +name+ ".txt";
+try {
+	BufferedReader br = new BufferedReader(new FileReader(file));	
+	String line = br.readLine();
+	while(line != null){
+		System.out.println(line);
+		line = br.readLine();
+	}
+	br.close();
+} catch (FileNotFoundException e1) {
+	e1.printStackTrace();
+} catch (IOException e1) {
+	e1.printStackTrace();
+}
 		}
 
 	}
