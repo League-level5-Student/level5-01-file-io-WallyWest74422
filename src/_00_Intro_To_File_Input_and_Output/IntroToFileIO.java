@@ -24,7 +24,7 @@ public class IntroToFileIO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+		   
 		//Read from a file one line at a time
 		try {
 			BufferedReader br = new BufferedReader(new FileReader("src/_00_Intro_To_File_Input_and_Output/test.txt"));

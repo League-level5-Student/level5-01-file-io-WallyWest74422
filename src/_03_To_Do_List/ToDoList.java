@@ -23,7 +23,7 @@ public class ToDoList implements ActionListener {
 	JButton b4 = new JButton("Save List");
 	JButton b5 = new JButton("Load List");
 	ArrayList<String> list = new ArrayList<String>();
-	String lastFile;
+
 
 	/*
 	 * Create a program with five buttons, add task, view tasks, remove task, save
@@ -51,9 +51,8 @@ public class ToDoList implements ActionListener {
 	}
 
 	private void setup() {
-		if(lastFile!=null) {
 		try {
-			BufferedReader br = new BufferedReader(new FileReader(lastFile));	
+			BufferedReader br = new BufferedReader(new FileReader("src/_03_To_Do_List/todo.txt"));	
 			String line = br.readLine();
 			while(line != null){
 				list.add(line);
@@ -65,7 +64,7 @@ public class ToDoList implements ActionListener {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		}
+
 		
 		frame.setSize(200, 200);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -97,7 +96,7 @@ public class ToDoList implements ActionListener {
 				System.out.println(list.get(i));
 			}
 		} else if (e.getSource() == b3) {
-String str = JOptionPane.showInputDialog("Enter the number of the task that you would like to remove.");
+String str = JOptionPane.showInputDialog("Enter the name of the task that you would like to remove.");
 for (int i = 0; i < list.size(); i++) {
 	if(str.equals(list.get(i))) {
 		list.remove(i);
@@ -105,16 +104,22 @@ for (int i = 0; i < list.size(); i++) {
 }
 		} else if (e.getSource() == b4) {
 			String file = JOptionPane.showInputDialog("Create a file name to save your list into.");
-			lastFile = "src/_03_To_Do_List/"+ file+".txt";
+			
+		
 			try {
 				FileWriter fw = new FileWriter("src/_03_To_Do_List/"+ file+".txt");
+				FileWriter save = new FileWriter("src/_03_To_Do_List/todo.txt", true);
 				for (int i = 0; i < list.size(); i++) {
 					fw.write(list.get(i) + "\n");
-				}					
+					save.write(list.get(i) + "\n");
+				}					 
 				fw.close();
+				save.close();
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
+	
+			
 		} else if (e.getSource() == b5) {
 String name = JOptionPane.showInputDialog("What is the name of your file?");
 String file = "src/_03_To_Do_List/" +name+ ".txt";
