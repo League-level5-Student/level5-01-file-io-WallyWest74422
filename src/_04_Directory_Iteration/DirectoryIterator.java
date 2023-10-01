@@ -34,32 +34,32 @@ public class DirectoryIterator {
 		 */
 		
 		JFileChooser jfc = new JFileChooser("/Users/league/git/level5-01-file-io-WallyWest74422/src");
-		System.out.println("It's running!");
 		jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-//		int returnVal = jfc.showOpenDialog(null);
-//		if (returnVal == JFileChooser.APPROVE_OPTION){
-			File src = jfc.getSelectedFile();
-			System.out.println("May not be able to list files...");
+			File src = jfc.getCurrentDirectory();
 			File[] files = src.listFiles();
-			System.out.println("Is able to list files!");
 			if(files != null) {
-				System.out.println("Files is not null!");
 				for(File f : files)	{
-					System.out.println("Iterating through files!");
-					System.out.println(f.getAbsolutePath());
-					if(f.getName().contains(".java")==true){
-						System.out.println("I found .java!");
-						try {
-							FileWriter fw = new FileWriter(f.getName());					
-							fw.write("\nCopyright © 2023 Ashay M");						
+					System.out.println(f.getName());
+					String[] fFiles = f.list();
+					for(String s : fFiles) {
+						System.out.println("src/"+f.getName()+"/"+s);
+						if(s.endsWith(".java")) {
+							try {
+						FileWriter fw = new FileWriter("src/"+f.getName()+"/"+s, true);					
+							fw.write("\n//Copyright © 2023 Ashay M");						
 							fw.close();
+							System.out.println("Writing in "+s);
 						} catch (IOException e) {
 							e.printStackTrace();
-						}
+	
+					}
+
 					}
 					
 					}
 				}
-//		} 
 	}
 }
+}
+
+//Copyright © 2023 Ashay M
