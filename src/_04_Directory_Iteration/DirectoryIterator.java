@@ -33,9 +33,16 @@ public class DirectoryIterator {
 		 * (e.g //Copyright © 2019 FirstName LastName)
 		 */
 		
-		JFileChooser jfc = new JFileChooser("/Users/league/git/level5-01-file-io-WallyWest74422/src");
+		JFileChooser jfc = new JFileChooser();
+		int returnVal = jfc.showOpenDialog(null);
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
 		jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-			File src = jfc.getCurrentDirectory();
+		System.out.println(jfc.getCurrentDirectory());
+	int i = jfc.getCurrentDirectory().toString().indexOf("src");
+	String str = jfc.getCurrentDirectory().toString().substring(0, i+3);	
+		System.out.println(str);
+		jfc = new JFileChooser(str);
+		File src = jfc.getCurrentDirectory();
 			File[] files = src.listFiles();
 			if(files != null) {
 				for(File f : files)	{
@@ -61,5 +68,10 @@ public class DirectoryIterator {
 	}
 }
 }
+}
 
 //Copyright © 2023 Ashay M
+
+//Copyright © 2023 Ashay M
+// Only one Copyright © 2023 Ashay M
+// Only one Copyright © 2023 Ashay M
